@@ -38,8 +38,19 @@ const siteContent = {
 };
 
 // Nav
-let navItems = document.querySelectorAll('nav a');
-navItems.forEach((item, index) => item.textContent = siteContent['nav'][`nav-item-${index + 1}`]);
+let nav = document.querySelector('nav');
+let navItems = nav.querySelectorAll('a');
+let prependLink = document.createElement('a'); 
+prependLink.textContent = "Prepended!";
+let appendLink = document.createElement('a');
+appendLink.textContent = "Appended!";
+nav.prepend(prependLink);
+nav.append(appendLink);
+
+navItems.forEach((item, index) => {
+  item.textContent = siteContent['nav'][`nav-item-${index + 1}`],
+  item.style.color = "green";
+});
 
 // Great Idea Logo
 let logo = document.getElementById("logo-img");
@@ -92,4 +103,37 @@ contactText[2].textContent = siteContent['contact']['email'];
 // Footer
 let footer = document.querySelector('footer');
 footer.textContent = siteContent['footer']['copyright'];
+
+//  ========== STRETCH STUFF ========== //
+let newContent = {
+  cta: {
+    h1: 'Prototypes Suck!',
+    button: "Don't click me!"
+  },
+  "main-content": {
+    "features-h4": 'Swag!',
+    "about-h4": 'Yeehaw!'
+  }
+}
+
+let flag = true; 
+let modifierButton = document.createElement('button');
+modifierButton.textContent = "Don't click me :)";
+modifierButton.style.backgroundColor = "pink";
+ctaTextContainer.append(modifierButton);
+
+function changeContent(){
+  flag = !flag;
+  if (flag) {
+    ctaHeader.textContent = newContent.cta.h1;
+    topContentHeadlines[0].textContent = newContent['main-content']['features-h4'];
+    topContentHeadlines[1].textContent = newContent['main-content']['about-h4'];
+   } else {
+    ctaHeader.textContent = siteContent['cta']['h1'];
+    topContentHeadlines[0].textContent = siteContent['main-content']['features-h4'];
+    topContentHeadlines[1].textContent = siteContent['main-content']['about-h4'];
+   };
+}
+
+modifierButton.addEventListener('click', changeContent);
 
