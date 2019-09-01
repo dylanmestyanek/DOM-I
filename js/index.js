@@ -104,7 +104,7 @@ contactText[2].textContent = siteContent['contact']['email'];
 let footer = document.querySelector('footer');
 footer.textContent = siteContent['footer']['copyright'];
 
-//  ========== STRETCH STUFF ========== //
+//  ==================== STRETCH STUFF ==================== //
 let newContent = {
   cta: {
     h1: 'Prototypes Suck!',
