@@ -74,8 +74,8 @@ function updateSecTens(){
     secOnes.textContent = 0;
     msHundreds.textContent = 0;
     
-    setInterval(() => digitsContainer.classList.toggle('whiteText'), 500);
-    
+    flashingTime = setInterval(() => digitsContainer.classList.toggle('whiteText'), 500);
+
     clearInterval(msSecInt);
     clearInterval(msHunInt);
     clearInterval(secOneInt);
@@ -88,9 +88,12 @@ function resetTimer(){
     secOnes.textContent = 0;
     msHundreds.textContent = 0;
     msTens.textContent = 0;
+
+    digits.forEach(digit => digit.style.color = "black");
     clearInterval(msSecInt);
     clearInterval(msHunInt);
     clearInterval(secOneInt);
+    clearInterval(flashingTime);
     clearTimeout(secTenTimeout);
 };
 
