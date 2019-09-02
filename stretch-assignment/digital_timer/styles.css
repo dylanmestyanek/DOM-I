@@ -9,6 +9,11 @@ body {
   font-size: 80px;
 }
 
-.redDigit {
+
+.whiteText {
+  color: white;
+}
+
+.redText {
   color: red;
 }

@@ -3,10 +3,12 @@ let msTens = document.querySelector('#msTens');
 let secOnes = document.querySelector('#secondOnes');
 let secTens = document.querySelector('#secondTens');
 let digitsContainer = document.querySelector('.digits');
+let digits = document.querySelectorAll('.digit');
 let buttonContainer = document.createElement('div');
 let startButton = document.createElement('button');
 let resetButton = document.createElement('button');
 
+let greenColor = 'rgba(50, 150, 50, 1)';
 let timerStarted = false;
 let MSTenCount = 0;
 let MSHunCount = 0;
@@ -17,52 +19,63 @@ function updateMSTen(){
     secTens.textContent = 0;
     secOnes.textContent = 0;
     timerStarted = true;
-    // msTenCount.style.color = "red";
+    msTens.style.color = greenColor;
 
     updateMSHundred();
-       msSecInt = setInterval(() => {
-            if (MSTenCount < 9){
-                MSTenCount++;
-                msTens.textContent = MSTenCount;
-            } else {
-                MSTenCount = 0;
-                msTens.textContent = MSTenCount;
-            };
-        }, 10);    
+    msSecInt = setInterval(() => {
+        if (MSTenCount < 9){
+            MSTenCount++;
+            msTens.textContent = MSTenCount;
+        } else {
+            MSTenCount = 0;
+            msTens.textContent = MSTenCount;
+        };
+    }, 10);    
 }
 
 function updateMSHundred(){
     updateSecOnes();
-        msHunInt = setInterval(() => {
-            if (MSHunCount < 9){
-                MSHunCount++;
-                msHundreds.textContent = MSHunCount;
-            } else {
-                MSHunCount = 0;
-                msHundreds.textContent = MSHunCount;
-            }
-        }, 100);
+    msHunInt = setInterval(() => {
+    msTens.style.color = "black";
+    if (MSHunCount < 9){
+            secOnesCount == 0 && (msHundreds.style.color = greenColor);
+            MSHunCount++;
+            msHundreds.textContent = MSHunCount;
+        } else {
+            MSHunCount = 0;
+            msHundreds.textContent = MSHunCount;
+        }
+    }, 100);
 }
 
 function updateSecOnes(){
-   secTenTimeout = setTimeout(() => updateSecTens(), 10012);
-       secOneInt = setInterval(() => {
-            if (secOnesCount < 9){
-                secOnesCount++;
-                secOnes.textContent = secOnesCount;
-            } else {
-                secOnesCount = 0;
-                secOnes.textContent = secOnesCount;            
-            }
-        }, 1000);
+    secTenTimeout = setTimeout(() => updateSecTens(), 10012);
+    secOneInt = setInterval(() => {
+        if (secOnesCount < 9){
+            secOnes.style.color = greenColor;
+            secOnesCount++;
+            secOnesCount > 0 && (msHundreds.style.color = "black");
+            secOnes.textContent = secOnesCount;
+        } else {
+            secOnesCount = 0;
+            secOnes.textContent = secOnesCount;            
+        }
+    }, 1000);
 }
 
 function updateSecTens(){
     timerStarted = false;
     secTens.textContent = 1;
+    secOnes.style.color = "red";
+    msHundreds.style.color = "red";
+    msTens.style.color = "red";
+    secTens.style.color = "red";
     msTens.textContent = 0;
     secOnes.textContent = 0;
     msHundreds.textContent = 0;
+    
+    setInterval(() => digitsContainer.classList.toggle('whiteText'), 500);
+    
     clearInterval(msSecInt);
     clearInterval(msHunInt);
     clearInterval(secOneInt);
@@ -89,7 +102,6 @@ buttonContainer.append(startButton);
 buttonContainer.append(resetButton);
 
 // Center timer container, and timer button container
-document.body.style.display = "flex";
 document.body.style.flexDirection = "column";
 document.body.style.height = "80vh";
 
@@ -142,5 +154,4 @@ resetButton.addEventListener('mouseout', function(){
     resetButton.style.backgroundColor = "rgba(200, 25, 25, .6)";
     this.style.color = "black";
 });
-
 
