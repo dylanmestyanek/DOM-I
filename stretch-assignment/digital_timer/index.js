@@ -3,6 +3,7 @@ let msTens = document.querySelector('#msTens');
 let secOnes = document.querySelector('#secondOnes');
 let secTens = document.querySelector('#secondTens');
 let digitsContainer = document.querySelector('.digits');
+let buttonContainer = document.createElement('div');
 let startButton = document.createElement('button');
 let resetButton = document.createElement('button');
 
@@ -16,6 +17,7 @@ function updateMSTen(){
     secTens.textContent = 0;
     secOnes.textContent = 0;
     timerStarted = true;
+    // msTenCount.style.color = "red";
 
     updateMSHundred();
        msSecInt = setInterval(() => {
@@ -43,7 +45,7 @@ function updateMSHundred(){
 }
 
 function updateSecOnes(){
-    setTimeout(() => updateSecTens(), 10012);
+   secTenTimeout = setTimeout(() => updateSecTens(), 10012);
        secOneInt = setInterval(() => {
             if (secOnesCount < 9){
                 secOnesCount++;
@@ -66,6 +68,7 @@ function updateSecTens(){
     clearInterval(secOneInt);
 };
 
+// Stops timer, sets all values to "0"
 function resetTimer(){
     timerStarted = false;
     secTens.textContent = 0;
@@ -75,13 +78,69 @@ function resetTimer(){
     clearInterval(msSecInt);
     clearInterval(msHunInt);
     clearInterval(secOneInt);
-}
+    clearTimeout(secTenTimeout);
+};
 
+// Build the Buttons Layout
 startButton.textContent = "Start Timer";
 resetButton.textContent = "Reset Timer";
-digitsContainer.append(startButton);
-digitsContainer.append(resetButton);
+document.body.append(buttonContainer);
+buttonContainer.append(startButton);
+buttonContainer.append(resetButton);
 
+// Center timer container, and timer button container
+document.body.style.display = "flex";
+document.body.style.flexDirection = "column";
+document.body.style.height = "80vh";
+
+digitsContainer.style.width = "50%";
+digitsContainer.style.margin = "0 auto";
+digitsContainer.style.textAlign = "center";
+
+buttonContainer.style.width = "100%";
+buttonContainer.style.margin = "0 auto";
+buttonContainer.style.textAlign = "center";
+
+// Makes Start/Reset buttons look pretty
+startButton.style.width = "150px";
+startButton.style.padding = "10px 20px";
+startButton.style.margin = "0 10px";
+startButton.style.border = "none";
+startButton.style.borderRadius = "10px 0";
+startButton.style.backgroundColor = "rgba(50, 200, 100, .6)";
+
+resetButton.style.width = "150px";
+resetButton.style.padding = "10px 20px";
+resetButton.style.margin = "0 10px";
+resetButton.style.border = "none";
+resetButton.style.borderRadius = "0 10px";
+resetButton.style.backgroundColor = "rgba(200, 25, 25, .6)";
+
+
+
+// Starts timer on click -- Adds hover effects
 startButton.addEventListener('click', () => !timerStarted && updateMSTen());
+startButton.addEventListener('mouseover', function(){
+    this.style.backgroundColor = "rgba(50, 150, 50, 1)";    
+    this.style.color = "white";
+    this.style.transition = "all .3s";
+});
+startButton.addEventListener('mouseout', function(){
+    this.style.backgroundColor = "rgba(50, 200, 100, .6)";
+    this.style.color = "black";
+});
+
+
+// Stops timer on click -- Adds hover effects
 resetButton.addEventListener('click', resetTimer);
+resetButton.addEventListener('mouseover', function(){
+    this.style.backgroundColor = "rgba(200, 25, 25, 1)";
+    this.style.color = "white";
+    this.style.transition = "all .3s";
+});
+resetButton.addEventListener('mouseout', function(){
+    resetButton.style.backgroundColor = "rgba(200, 25, 25, .6)";
+    this.style.color = "black";
+});
+
 
